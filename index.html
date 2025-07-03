@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cricket Points Table</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+  <script src="firebase-config.js" defer></script>
+  <script src="script.js" defer></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-indigo-100 to-purple-200 min-h-screen p-6">
+
+  <div class="max-w-4xl mx-auto bg-white p-6 rounded-2xl shadow-lg">
+    <h1 class="text-3xl font-bold text-center text-purple-800 mb-4">🏏 Cricket Tournament Points Table</h1>
+    
+    <div id="startup" class="text-center space-x-4 mb-6">
+      <button onclick="startNew()" class="bg-purple-600 text-white px-6 py-2 rounded-xl hover:bg-purple-800 transition">Start New</button>
+      <button onclick="loadPrevious()" class="bg-gray-500 text-white px-6 py-2 rounded-xl hover:bg-gray-700 transition">Load Previous</button>
+    </div>
+
+    <div id="teamForm" class="hidden space-y-4 mb-6">
+      <input id="teamCount" type="number" placeholder="Enter number of teams" class="border p-2 rounded w-full" />
+      <button onclick="generateTeamInputs()" class="bg-green-500 text-white px-4 py-2 rounded-xl">Continue</button>
+      <div id="teamInputs" class="mt-4 space-y-2"></div>
+    </div>
+
+    <div id="matchForm" class="hidden">
+      <h2 class="text-xl font-semibold mb-2">Enter Match Result</h2>
+      <form id="matchInputForm" class="space-y-3">
+        <select id="teamA" class="w-full p-2 rounded border"></select>
+        <select id="teamB" class="w-full p-2 rounded border"></select>
+        <input type="number" id="aRuns" placeholder="Team A Runs" class="w-full p-2 rounded border" />
+        <input type="text" id="aOvers" placeholder="Team A Overs (e.g. 19.3)" class="w-full p-2 rounded border" />
+        <input type="number" id="bRuns" placeholder="Team B Runs" class="w-full p-2 rounded border" />
+        <input type="text" id="bOvers" placeholder="Team B Overs (e.g. 20.0)" class="w-full p-2 rounded border" />
+        <select id="result" class="w-full p-2 rounded border">
+          <option value="A">Team A Wins</option>
+          <option value="B">Team B Wins</option>
+          <option value="D">Draw</option>
+        </select>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-xl">Submit Match</button>
+      </form>
+    </div>
+
+    <div id="pointsTable" class="hidden mt-6">
+      <h2 class="text-xl font-bold mb-3">Live Points Table</h2>
+      <table class="w-full table-auto border-collapse rounded-xl overflow-hidden">
+        <thead class="bg-purple-600 text-white">
+          <tr>
+            <th class="p-2">Team</th>
+            <th class="p-2">P</th>
+            <th class="p-2">W</th>
+            <th class="p-2">L</th>
+            <th class="p-2">D</th>
+            <th class="p-2">Pts</th>
+            <th class="p-2">NRR</th>
+          </tr>
+        </thead>
+        <tbody id="pointsBody" class="bg-purple-50 text-center"></tbody>
+      </table>
+    </div>
+
+  </div>
+</body>
+</html>
